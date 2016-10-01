@@ -29,5 +29,5 @@ before_install:
 install:
   - python setup.py -q bootstrap
   - python setup.py -q sdist
-  - pip install -q dist/*.tar.gz
+  - pip install -v dist/*.tar.gz
 script: nosetests -w tests

@@ -12,3 +12,6 @@ def liquid_firdes_rrcos(int k, int m, float beta, float dt=0, float[::1] out = N
             raise ValueError('out must be {}-element array'.format(outlen))
     cliquid.liquid_firdes_rrcos(k, m, beta, dt, &out[0])
     return np.asarray(out)
+
+def fskdem_create(int m, int k, float bandwidth):
+    cliquid.fskdem_create(m, k, bandwidth)

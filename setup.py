@@ -6,6 +6,7 @@ except ImportError:
 try:
     from Cython.Build import cythonize
 except ImportError:
+    print("Keep going without Cython...")
     def cythonize(paths):
         return paths
 
@@ -44,6 +45,7 @@ class build_clib(_build_clib):
 extensions = cythonize([
     Extension('pyliquiddsp.libliquid',
         sources=['pyliquiddsp/libliquid.pyx'],
+        libraries=['liquid', 'fftw3f']
     )
 ])
 
