@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.5"
+env:
+  - ACLOCAL_PATH=./scripts
 install:
   - "pip install -q numpy"
   - "python setup.py -q install"
