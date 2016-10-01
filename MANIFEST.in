@@ -1,7 +1,4 @@
 recursive-include pyliquiddsp *.py *.pyx *.pxd *.c *.h
-
-include liquid-dsp.files
 graft liquid-dsp
-prune liquid-dsp/.git
 exclude liquid-dsp/makefile liquid-dsp/config.h liquid-dsp/config.log liquid-dsp/config.status liquid-dsp/libliquid*
 recursive-exclude liquid-dsp *.o
