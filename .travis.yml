@@ -16,10 +16,15 @@ matrix:
     - os: osx
       language: generic
       env: PYTHON="2.7"
+addons:
+  apt:
+    packages:
+      - libfftw3-dev
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew cask install miniconda; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then source ~/miniconda3/bin/activate; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then conda install -qy python=$PYTHON numpy nose; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install fftw; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install -q numpy; fi
 install:
   - python setup.py -q bootstrap
