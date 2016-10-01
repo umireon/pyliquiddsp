@@ -5,6 +5,7 @@ env:
   - ACLOCAL_PATH=./scripts
 install:
   - "pip install -q numpy"
-  - "python setup.py -q install"
+  - "python setup.py -q sdist"
+  - "pip install -q dist/*.tar.gz"
 script:
   - "nosetests -w tests"
