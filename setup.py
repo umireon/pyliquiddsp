@@ -19,7 +19,7 @@ class build_clib(_build_clib):
     def configure_liquid(self):
         SOURCE_DIR = os.path.join(os.getcwd(), 'liquid-dsp')
         subprocess.call(['sh', 'bootstrap.sh'], cwd=SOURCE_DIR)
-        subprocess.call(['sh', 'configure', '--prefix='], cwd=SOURCE_DIR)
+        subprocess.call(['sh', 'configure', '--enable-simdoverride', '--prefix='], cwd=SOURCE_DIR)
 
     def build_libraries(self, libraries):
         self.configure_liquid()
