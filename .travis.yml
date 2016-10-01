@@ -2,13 +2,7 @@ language: python
 python:
   - "3.5"
 env:
-  - ACLOCAL_PATH=./scripts CC=gcc-5
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-5
+  - ACLOCAL_PATH=./scripts
 install:
   - "pip install -q numpy"
   - "python setup.py -q install"
