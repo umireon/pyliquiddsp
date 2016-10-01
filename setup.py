@@ -1,7 +1,7 @@
 try:
-    from setuptools import setup, Extension
+    from setuptools import setup, Extension, Command
 except ImportError:
-    from distutils.core import setup, Extension
+    from distutils.core import setup, Extension, Command
 
 try:
     from Cython.Build import cythonize
@@ -9,16 +9,27 @@ except ImportError:
     def cythonize(paths):
         return paths
 
-from distutils.command.build_clib import build_clib as _build_clib
-
 import subprocess
 import os
 import shutil
 import numpy as np
+from distutils.command.build_clib import build_clib as _build_clib
+from distutils.command.sdist import sdist
+
+class bootstrap(Command):
+    description = "bootstrap by automake and autoconf"
+    user_options = []
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        pass
+    def run(self):
+        subprocess.call(['bootstrap.sh'], cwd='liquid-dsp', env={'ACLOCAL_PATH': './scripts'})
 
 class build_clib(_build_clib):
     def configure_liquid(self):
-        subprocess.call(['sh', 'bootstrap.sh'], cwd='liquid-dsp')
+        if os.path.exists('liquid-dsp/configure'):
+            subprocess.call(['bootstrap.sh'], cwd='liquid-dsp', env={'ACLOCAL_PATH': './scripts'})
         subprocess.call(['sh', 'configure'], cwd='liquid-dsp')
         subprocess.call(['make', 'libliquid.a'], cwd='liquid-dsp')
 
@@ -48,6 +59,7 @@ setup(
     libraries=libraries,
     include_dirs=[np.get_include(), 'pyliquiddsp/include'],
     cmdclass={
+        'bootstrap': bootstrap,
         'build_clib': build_clib,
     },
 )

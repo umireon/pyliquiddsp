@@ -22,6 +22,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then conda install -qy python=$PYTHON numpy nose; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install -q numpy; fi
 install:
+  - python setup.py -q bootstrap
   - python setup.py -q sdist
-  - ACLOCAL_PATH=./scripts pip install -q dist/*.tar.gz
+  - pip install -q dist/*.tar.gz
 script: nosetests -w tests
