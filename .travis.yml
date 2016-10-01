@@ -1,11 +1,27 @@
 language: python
-python:
-  - "3.5"
-env:
-  - ACLOCAL_PATH=./scripts
+matrix:
+  include:
+    - os: linux
+      python: "3.5"
+    - os: linux
+      python: "3.4"
+    - os: linux
+      python: "2.7"
+    - os: osx
+      language: generic
+      env: PYTHON="3.5"
+    - os: osx
+      language: generic
+      env: PYTHON="3.4"
+    - os: osx
+      language: generic
+      env: PYTHON="2.7"
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew cask install miniconda; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then source ~/miniconda3/bin/activate; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then conda install -qy python=$PYTHON numpy nose; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install -q numpy; fi
 install:
-  - "pip install -q numpy"
-  - "python setup.py -q sdist"
-  - "pip install -q dist/*.tar.gz"
-script:
-  - "nosetests -w tests"
+  - python setup.py -q sdist
+  - ACLOCAL_PATH=./scripts pip install -q dist/*.tar.gz
+script: nosetests -w tests
