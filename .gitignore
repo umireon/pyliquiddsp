@@ -23,6 +23,3 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# Generated files
-pyliquiddsp/*.c
