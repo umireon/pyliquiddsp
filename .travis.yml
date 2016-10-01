@@ -6,4 +6,5 @@ env:
 install:
   - "pip install -q numpy"
   - "python setup.py -q install"
-script: nosetests
+script:
+  - "nosetests -w tests"
